@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Aspect
-@Component
+@Aspect // self explanatory, for AspectJ
+@Component // this is a bean, duh
 public class LoggingAroundAspect {
 
-    private Log log = LogFactory.getLog(getClass());
+    private Log log = LogFactory.getLog(getClass()); // get an instance of a logger, here may be a better implementation
 
-    @Around("execution(* com.theapprenticewizard.aspectlogging.model.service.BirdServiceImpl.findAll()) && @annotation(Loggable)")
+    @Around("execution(* com.theapprenticewizard.aspectlogging.model.service.BirdServiceImpl.findAll()) && @annotation(Loggable)") // annotations preferred
     public Object log(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LocalDateTime start = LocalDateTime.now();
 
@@ -23,8 +23,8 @@ public class LoggingAroundAspect {
         Object returnValue = null;
 
         try {
-            returnValue = proceedingJoinPoint.proceed();
-        } catch (Throwable t) {
+            returnValue = proceedingJoinPoint.proceed(); // determine the value that we're proxying
+        } catch (Throwable t) { // catch literally anything, because we are proxying it
             toThrow = t;
         }
 
@@ -34,9 +34,9 @@ public class LoggingAroundAspect {
         log.info("finishing @ " + stop.toString());
         log.info("with duration " + stop.minusNanos(start.getNano()).getNano() + "ns");
 
-        if (null != toThrow)
-            throw toThrow;
+        if (null != toThrow) // if we should catch an exception we SHOULD NOT just let it slide.
+            throw toThrow; // throw the exception we caught earlier
 
-        return returnValue;
+        return returnValue; // return the value we we're supposed to throw
     }
 }
