@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 @Builder
 @Embeddable
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 class Family {
     private String region;

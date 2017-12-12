@@ -22,7 +22,7 @@ public class AspectLoggingApplicationTest {
 
     @Test
     public void controllerExists() throws Exception {
-        mockMvc.perform(get("/birds"))
+        mockMvc.perform(get("/v1/birds"))
                 .andExpect(status().isOk());
     }
 }
