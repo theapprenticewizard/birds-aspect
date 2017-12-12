@@ -6,10 +6,9 @@ import javax.persistence.Embeddable;
 
 @Builder
 @Embeddable
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Family {
+class Family {
     private String region;
     private  String genius;
 }
