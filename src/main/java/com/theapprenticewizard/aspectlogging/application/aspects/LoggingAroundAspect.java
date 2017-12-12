@@ -1,4 +1,4 @@
-package com.theapprenticewizard.aspectlogging.application;
+package com.theapprenticewizard.aspectlogging.application.aspects;
 
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -15,7 +15,7 @@ public class LoggingAroundAspect {
 
     private Log log = LogFactory.getLog(getClass());
 
-    @Around("execution(* com.theapprenticewizard.aspectlogging.model.service.BirdServiceImpl.findAll())")
+    @Around("execution(* com.theapprenticewizard.aspectlogging.model.service.BirdServiceImpl.findAll()) && @annotation(Loggable)")
     public Object log(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LocalDateTime start = LocalDateTime.now();
 
